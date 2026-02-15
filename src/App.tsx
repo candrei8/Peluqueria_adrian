@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Scissors, 
-  Star, 
-  MapPin, 
-  Clock, 
-  Phone, 
-  Instagram, 
-  Facebook, 
+import {
+  Scissors,
+  Star,
+  MapPin,
+  Clock,
+  Phone,
+  Instagram,
+  Facebook,
   ChevronLeft,
   ChevronRight,
   Quote,
   Zap,
   Crown,
-  Sparkles
+  Sparkles,
+  Info
 } from 'lucide-react';
 
 function App() {
@@ -20,15 +21,21 @@ function App() {
   const [currentServiceSlide, setCurrentServiceSlide] = useState(0);
   const [isVisible, setIsVisible] = useState({});
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isBookingInfoModalOpen, setIsBookingInfoModalOpen] = useState(false);
   const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
   const [isCookiePolicyModalOpen, setIsCookiePolicyModalOpen] = useState(false);
   const [showCookieBanner, setShowCookieBanner] = useState(false);
 
   const galleryImages = [
+    '/fachada.jpg',
+    '/interior1.png',
+    '/interior2.png',
+    '/interior3.png',
     '/adrian local.jpg',
     '/insta_01-2.jpg',
     '/ChatGPT Image 13 sept 2025, 15_32_34.png',
-    '/ChatGPT Image 13 sept 2025, 15_32_48.png'
+    '/ChatGPT Image 13 sept 2025, 15_32_48.png',
+    '/corte_moderno.png'
   ];
 
   const testimonials = [
@@ -62,13 +69,13 @@ function App() {
     { name: "Afeitado", price: "11,00 €", category: "CORTE", icon: Star, featured: false },
     { name: "Arreglo Cuello y Patillas", price: "5,00 €", category: "CORTE", icon: Clock, featured: false },
     { name: "A Militares", price: "12,00 €", category: "CORTE", icon: Crown, featured: false },
-    
+
     // BARBA
     { name: "Afeitado", price: "10,00 €", category: "BARBA", icon: Sparkles, featured: false },
     { name: "Repaso con Máquina", price: "4,00 €", category: "BARBA", icon: Zap, featured: false },
     { name: "Arreglo sin Afeitar", price: "6,00 €", category: "BARBA", icon: Scissors, featured: false },
     { name: "Arreglo con Afeitado", price: "9,00 €", category: "BARBA", icon: Crown, featured: false },
-    
+
     // OTROS
     { name: "Cejas", price: "2,00 €", category: "OTROS", icon: Star, featured: false },
     { name: "Marcar Rayas", price: "2,00 €", category: "OTROS", icon: Sparkles, featured: false },
@@ -168,9 +175,9 @@ function App() {
               <div className="absolute inset-4 bg-gradient-to-tr from-gold-accent to-gold-primary rounded-2xl transform -rotate-6 shadow-xl shadow-gold-accent/30 animate-card-stack-2"></div>
               <div className="absolute inset-8 bg-gradient-to-bl from-gold-light to-gold-accent rounded-xl shadow-lg animate-card-stack-3"></div>
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <img 
-                  src="/AdrianLogo.png" 
-                  alt="Adrián Peluqueros Logo" 
+                <img
+                  src="/AdrianLogo.png"
+                  alt="Adrián Peluqueros Logo"
                   className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain animate-pulse filter drop-shadow-lg animate-logo-final logo-no-dark-mode"
                   style={{
                     imageRendering: 'crisp-edges',
@@ -189,16 +196,18 @@ function App() {
             <span className="text-5xl sm:text-6xl md:text-8xl lg:text-[10rem] xl:text-[12rem] block text-center">ADRIÁN</span>
             <span className="text-4xl sm:text-5xl md:text-7xl lg:text-[9rem] xl:text-[11rem] font-light animate-slide-in-right block mt-2 text-center text-gold-light">PELUQUEROS</span>
           </h1>
-          
+
           <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gold-muted mb-8 md:mb-16 font-body font-light tracking-wide max-w-3xl mx-auto leading-relaxed animate-slide-in-left px-4">
             Más de 50 años siendo la peluqueria de referencia de Torrejón de Ardoz
           </p>
 
-          <div 
-            className="relative inline-block px-8 sm:px-12 md:px-16 py-4 sm:py-5 md:py-6 bg-gradient-to-r from-gold-primary to-gold-accent rounded-2xl text-lg sm:text-xl font-body font-bold text-dark-primary border border-gold-primary/20 animate-fade-in-up cursor-default"
+          <button
+            onClick={() => setIsBookingInfoModalOpen(true)}
+            className="group relative inline-block px-8 sm:px-12 md:px-16 py-4 sm:py-5 md:py-6 bg-gradient-to-r from-gold-primary to-gold-accent rounded-2xl text-lg sm:text-xl font-body font-bold text-dark-primary border border-gold-primary/20 animate-fade-in-up hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-gold-primary/50 cursor-pointer"
           >
-            <span className="relative z-10">Reservas online - pronto</span>
-          </div>
+            <span className="relative z-10">Reserva Online</span>
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-gold-light to-gold-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+          </button>
         </div>
 
         {/* Floating elements */}
@@ -216,13 +225,13 @@ function App() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-luxury font-bold text-center mb-8 sm:mb-12 md:mb-20 text-gold-light sm:bg-gradient-to-r sm:from-gold-light sm:to-gold-accent sm:bg-clip-text sm:text-transparent animate-typewriter animate-glow-pulse">
             Nuestros Servicios
           </h2>
-          
+
           {/* New Services Carousel */}
           <div className="relative px-4 sm:px-8 md:px-12 lg:px-16">
             {/* Carousel Container */}
             <div className="relative overflow-hidden rounded-3xl">
               {/* Services Slides */}
-              <div 
+              <div
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentServiceSlide * 100}%)` }}
               >
@@ -233,13 +242,12 @@ function App() {
                       <div className="space-y-3">
                         {services.slice(slideIndex * servicesPerSlide, (slideIndex + 1) * servicesPerSlide).map((service, index) => {
                           const IconComponent = service.icon;
-                          
+
                           return (
                             <div
                               key={`mobile-${slideIndex}-${index}`}
-                              className={`flex items-center justify-between bg-gradient-to-r from-dark-card/60 to-dark-accent/40 backdrop-blur-lg rounded-xl p-4 border border-gold-primary/10 hover:border-gold-primary/30 transition-all duration-300 ${
-                                service.featured ? 'ring-1 ring-gold-primary/40 shadow-lg shadow-gold-primary/20' : ''
-                              }`}
+                              className={`flex items-center justify-between bg-gradient-to-r from-dark-card/60 to-dark-accent/40 backdrop-blur-lg rounded-xl p-4 border border-gold-primary/10 hover:border-gold-primary/30 transition-all duration-300 ${service.featured ? 'ring-1 ring-gold-primary/40 shadow-lg shadow-gold-primary/20' : ''
+                                }`}
                             >
                               {/* Left side: Icon and Service Info */}
                               <div className="flex items-center space-x-3 flex-1">
@@ -247,7 +255,7 @@ function App() {
                                 <div className="bg-gradient-to-br from-gold-primary/20 to-gold-accent/20 rounded-lg p-2 flex-shrink-0">
                                   <IconComponent className="w-5 h-5 text-gold-primary" />
                                 </div>
-                                
+
                                 {/* Service Info */}
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center space-x-2 mb-1">
@@ -263,7 +271,7 @@ function App() {
                                   </h3>
                                 </div>
                               </div>
-                              
+
                               {/* Right side: Price */}
                               <div className="flex-shrink-0 ml-3">
                                 <span className="text-lg font-luxury font-bold text-gold-primary">
@@ -275,27 +283,26 @@ function App() {
                         })}
                       </div>
                     </div>
-                    
+
                     {/* Desktop Card Layout */}
                     <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
                       {services.slice(slideIndex * servicesPerSlide, (slideIndex + 1) * servicesPerSlide).map((service, index) => {
                         const IconComponent = service.icon;
                         const animationClasses = [
                           'service-icon-pop-left',
-                          'service-icon-bounce-up', 
+                          'service-icon-bounce-up',
                           'service-icon-pop-right',
                           'service-icon-spin-scale',
                           'service-icon-pulse-glow',
                           'service-icon-wobble'
                         ];
                         const animationClass = animationClasses[index % animationClasses.length];
-                        
+
                         return (
                           <div
                             key={`${slideIndex}-${index}`}
-                            className={`group relative bg-gradient-to-br from-dark-card/90 to-dark-accent/70 backdrop-blur-xl rounded-3xl p-6 md:p-8 hover:from-dark-card hover:to-dark-accent transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-gold-primary/25 border border-gold-primary/15 hover:border-gold-primary/40 ${
-                              service.featured ? 'ring-2 ring-gold-primary/60 shadow-xl shadow-gold-primary/30' : ''
-                            } flex flex-col justify-between min-h-[280px] md:min-h-[320px]`}
+                            className={`group relative bg-gradient-to-br from-dark-card/90 to-dark-accent/70 backdrop-blur-xl rounded-3xl p-6 md:p-8 hover:from-dark-card hover:to-dark-accent transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-gold-primary/25 border border-gold-primary/15 hover:border-gold-primary/40 ${service.featured ? 'ring-2 ring-gold-primary/60 shadow-xl shadow-gold-primary/30' : ''
+                              } flex flex-col justify-between min-h-[280px] md:min-h-[320px]`}
                           >
                             {/* Featured Badge */}
                             {service.featured && (
@@ -303,34 +310,34 @@ function App() {
                                 <Star className="w-5 h-5 text-dark-primary" />
                               </div>
                             )}
-                            
+
                             {/* Card Content */}
                             <div className="flex-grow">
                               {/* Icon */}
                               <div className={`service-icon-container bg-gradient-to-br from-gold-primary/25 to-gold-accent/25 rounded-2xl p-4 w-fit mb-6 group-hover:from-gold-primary/35 group-hover:to-gold-accent/35 transition-all duration-300 ${animationClass}`}>
                                 <IconComponent className="w-8 h-8 md:w-9 md:h-9 text-gold-primary transform group-hover:scale-110 transition-transform duration-300" />
                               </div>
-                              
+
                               {/* Category Badge */}
                               <div className="mb-4">
                                 <span className="text-sm font-body text-gold-accent bg-gold-primary/15 px-3 py-1.5 rounded-full border border-gold-primary/20">
                                   {service.category}
                                 </span>
                               </div>
-                              
+
                               {/* Service Name */}
                               <h3 className="text-lg md:text-xl font-luxury font-bold mb-6 text-gold-light group-hover:text-gold-primary transition-colors duration-300 leading-tight">
                                 {service.name}
                               </h3>
                             </div>
-                            
+
                             {/* Price */}
                             <div className="flex justify-center mt-auto pt-4 border-t border-gold-primary/10">
                               <span className="text-2xl md:text-3xl font-luxury font-bold text-gold-primary group-hover:text-gold-light transition-colors duration-300">
                                 {service.price}
                               </span>
                             </div>
-                            
+
                             {/* Hover Glow Effect */}
                             <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-gold-primary/0 via-gold-accent/8 to-gold-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                           </div>
@@ -341,7 +348,7 @@ function App() {
                 ))}
               </div>
             </div>
-            
+
             {/* Navigation Arrows */}
             <button
               onClick={prevServiceSlide}
@@ -363,11 +370,10 @@ function App() {
               <button
                 key={index}
                 onClick={() => setCurrentServiceSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentServiceSlide 
-                    ? 'bg-gold-primary shadow-lg shadow-gold-primary/50 scale-125' 
-                    : 'bg-gold-muted/50 hover:bg-gold-muted hover:scale-110'
-                }`}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentServiceSlide
+                  ? 'bg-gold-primary shadow-lg shadow-gold-primary/50 scale-125'
+                  : 'bg-gold-muted/50 hover:bg-gold-muted hover:scale-110'
+                  }`}
               />
             ))}
           </div>
@@ -380,51 +386,56 @@ function App() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-luxury font-bold text-center mb-8 sm:mb-12 md:mb-20 text-gold-light sm:bg-gradient-to-r sm:from-gold-light sm:to-gold-accent sm:bg-clip-text sm:text-transparent animate-typewriter animate-glow-pulse">
             Nuestro Trabajo
           </h2>
-          
+
           <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl shadow-dark-primary/50 border border-gold-primary/20">
-            <div className="relative h-64 sm:h-80 md:h-96 lg:h-[600px]">
+            <div className="relative h-[500px] sm:h-80 md:h-96 lg:h-[600px]">
               {galleryImages.map((image, index) => (
                 <div
                   key={index}
-                  className={`absolute inset-0 transition-all duration-1000 ${
-                    index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-                  }`}
+                  className={`absolute inset-0 transition-all duration-1000 ${index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+                    }`}
                 >
+                  {/* Blurred background image to fill the container - hidden on mobile */}
+                  <img
+                    src={image}
+                    alt=""
+                    className="hidden md:block absolute inset-0 w-full h-full object-cover object-center blur-xl scale-110 opacity-60"
+                  />
+                  {/* Main image - cover on mobile for bigger display, contain on desktop */}
                   <img
                     src={image}
                     alt={`Gallery ${index + 1}`}
-                    className="w-full h-full object-cover object-center"
+                    className="relative w-full h-full object-cover md:object-contain object-center z-10 brightness-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-primary/80 via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark-primary/80 via-transparent to-transparent z-20"></div>
                 </div>
               ))}
             </div>
-            
-            {/* Navigation buttons */}
+
+            {/* Navigation buttons - minimal */}
             <button
               onClick={prevSlide}
-              className="absolute left-3 sm:left-6 top-1/2 transform -translate-y-1/2 bg-dark-card/80 hover:bg-gold-primary/20 backdrop-blur-lg rounded-full p-2 sm:p-3 transition-all duration-300 border border-gold-primary/30 hover:border-gold-primary/60"
+              className="absolute left-1 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 rounded-full p-1 transition-all duration-300 z-30"
             >
-              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gold-primary" />
+              <ChevronLeft className="w-3 h-3 text-white/70" />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-3 sm:right-6 top-1/2 transform -translate-y-1/2 bg-dark-card/80 hover:bg-gold-primary/20 backdrop-blur-lg rounded-full p-2 sm:p-3 transition-all duration-300 border border-gold-primary/30 hover:border-gold-primary/60"
+              className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 rounded-full p-1 transition-all duration-300 z-30"
             >
-              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gold-primary" />
+              <ChevronRight className="w-3 h-3 text-white/70" />
             </button>
 
-            {/* Dots indicator */}
-            <div className="absolute bottom-2 sm:bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-1 sm:space-x-3">
+            {/* Dots indicator - tiny */}
+            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1.5 z-30">
               {galleryImages.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-1 h-1 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                    index === currentSlide 
-                      ? 'bg-gold-primary shadow-lg shadow-gold-primary/50 scale-150 sm:scale-100' 
-                      : 'bg-gold-muted/50 hover:bg-gold-muted sm:hover:scale-110'
-                  }`}
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${index === currentSlide
+                    ? 'bg-white/80'
+                    : 'bg-white/30'
+                    }`}
                 />
               ))}
             </div>
@@ -439,7 +450,7 @@ function App() {
             <span className="block sm:inline">Lo Que Dicen</span>
             <span className="block sm:inline sm:ml-2">Nuestros Clientes</span>
           </h2>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {testimonials.map((testimonial, index) => (
               <div
@@ -475,8 +486,8 @@ function App() {
           <p className="text-lg sm:text-xl md:text-2xl text-gold-muted mb-8 sm:mb-12 md:mb-16 font-body font-light max-w-3xl mx-auto leading-relaxed animate-slide-in-left px-4">
             Llámanos o visítanos en nuestra peluquería en Torrejón de Ardoz
           </p>
-          
-          <a 
+
+          <a
             href="tel:+34916566306"
             className="group relative inline-block px-8 sm:px-12 md:px-16 lg:px-20 py-4 sm:py-6 md:py-8 bg-gradient-to-r from-gold-primary to-gold-accent rounded-2xl sm:rounded-3xl text-lg sm:text-xl md:text-2xl font-body font-bold text-dark-primary hover:from-gold-light hover:to-gold-primary transition-all duration-500 transform hover:scale-110 hover:shadow-2xl hover:shadow-gold-primary/50 border border-gold-primary/20 animate-fade-in-up"
           >
@@ -499,7 +510,7 @@ function App() {
                 </div>
                 <h3 className="text-lg sm:text-xl md:text-2xl font-luxury font-semibold text-gold-light">Ubicación</h3>
               </div>
-              <a 
+              <a
                 href="https://maps.app.goo.gl/fVSubKFoZQWfojKQA"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -536,15 +547,15 @@ function App() {
                 </div>
                 <h3 className="text-lg sm:text-xl md:text-2xl font-luxury font-semibold text-gold-light">Contacto</h3>
               </div>
-              <a 
+              <a
                 href="tel:+34916566306"
                 className="text-gold-muted hover:text-gold-primary mb-4 sm:mb-6 md:mb-8 text-base sm:text-lg font-body transition-colors duration-300 cursor-pointer hover:underline"
               >
                 +34 916 566 306
               </a>
-              
+
               <div className="flex justify-center space-x-3 sm:space-x-4">
-                <a 
+                <a
                   href="https://www.instagram.com/adrianpeluquerostorrejon/?hl=es"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -552,7 +563,7 @@ function App() {
                 >
                   <Instagram className="w-4 h-4 sm:w-5 sm:h-5 text-gold-primary" />
                 </a>
-                <a 
+                <a
                   href="https://www.facebook.com/adrianpeluquerostorrejon/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -584,6 +595,63 @@ function App() {
         </div>
       </footer>
 
+      {/* Booking Info Modal */}
+      {isBookingInfoModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="relative w-full max-w-lg bg-gradient-to-br from-dark-card to-dark-accent rounded-2xl shadow-2xl overflow-hidden border border-gold-primary/20 p-6 sm:p-8 animate-jump-in">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsBookingInfoModalOpen(false)}
+              className="absolute top-4 right-4 z-10 w-8 h-8 md:w-10 md:h-10 bg-dark-primary/80 hover:bg-gold-primary/20 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 border border-gold-primary/30"
+            >
+              <svg className="w-5 h-5 text-gold-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="flex flex-col items-center text-center">
+              <div className="bg-gradient-to-br from-gold-primary/20 to-gold-accent/20 rounded-full p-4 mb-6 ring-1 ring-gold-primary/30">
+                <Info className="w-10 h-10 text-gold-primary animate-pulse" />
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl font-luxury font-bold text-gold-light mb-4 text-transparent bg-clip-text bg-gradient-to-r from-gold-light to-gold-primary">
+                Información Importante
+              </h2>
+
+              <div className="space-y-4 text-gold-muted font-body text-base sm:text-lg leading-relaxed mb-8">
+                <p>
+                  Las reservas requieren confirmación por el peluquero.
+                </p>
+                <p>
+                  <span className="text-gold-primary font-semibold">Si es aceptada</span>, le saldrá una notificación al correo.
+                </p>
+                <p>
+                  <span className="text-red-400 font-semibold">Si no es confirmada</span>, se requiere llamada para gestionar la cita.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4 w-full">
+                <button
+                  onClick={() => setIsBookingInfoModalOpen(false)}
+                  className="flex-1 px-6 py-3 bg-transparent border border-gold-primary/50 text-gold-primary hover:bg-gold-primary/10 rounded-xl font-body font-semibold transition-all duration-300 hover:scale-105"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={() => {
+                    setIsBookingInfoModalOpen(false);
+                    setIsBookingModalOpen(true);
+                  }}
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-gold-primary to-gold-accent hover:from-gold-light hover:to-gold-primary text-dark-primary rounded-xl font-body font-bold transition-all duration-300 hover:scale-105 shadow-lg shadow-gold-primary/30"
+                >
+                  Continuar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Cal.com Booking Modal */}
       {isBookingModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
@@ -597,10 +665,10 @@ function App() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            
+
             {/* Cal.com Iframe */}
             <iframe
-              src="https://cal.com/epsilune/peluqueria-adrian"
+              src="https://www.cal.eu/adrianpeluqueros/citapeluqueria?overlayCalendar=true"
               className="w-full h-full border-0"
               title="Reservar Cita - Adrián Peluqueros"
             />
@@ -621,7 +689,7 @@ function App() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            
+
             {/* Content */}
             <div className="p-6 sm:p-8 md:p-12 max-h-[90vh] overflow-y-auto">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-luxury font-bold text-gold-primary mb-8 text-center">
@@ -802,7 +870,7 @@ function App() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            
+
             {/* Content */}
             <div className="p-6 sm:p-8 md:p-12 max-h-[90vh] overflow-y-auto">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-luxury font-bold text-gold-primary mb-8 text-center">
@@ -824,7 +892,7 @@ function App() {
                   <p className="mb-4 text-gold-muted">
                     Esta página web utiliza los siguientes tipos de cookies:
                   </p>
-                  
+
                   <div className="space-y-6">
                     <div>
                       <h3 className="text-lg font-luxury font-semibold text-gold-primary mb-3">2.1. Cookies técnicas (necesarias)</h3>
@@ -1056,7 +1124,7 @@ function App() {
                   Uso de Cookies
                 </h3>
                 <p className="text-sm sm:text-base text-gold-muted leading-relaxed">
-                  Este sitio web utiliza cookies técnicas para garantizar el correcto funcionamiento y visualización del sitio. 
+                  Este sitio web utiliza cookies técnicas para garantizar el correcto funcionamiento y visualización del sitio.
                   Al continuar navegando, acepta el uso de cookies. Para más información, consulte nuestra{' '}
                   <button
                     onClick={() => {
