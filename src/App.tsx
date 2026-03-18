@@ -201,13 +201,23 @@ function App() {
             Más de 50 años siendo la peluqueria de referencia de Torrejón de Ardoz
           </p>
 
-          <button
-            onClick={() => setIsBookingInfoModalOpen(true)}
-            className="group relative inline-block px-8 sm:px-12 md:px-16 py-4 sm:py-5 md:py-6 bg-gradient-to-r from-gold-primary to-gold-accent rounded-2xl text-lg sm:text-xl font-body font-bold text-dark-primary border border-gold-primary/20 animate-fade-in-up hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-gold-primary/50 cursor-pointer"
-          >
-            <span className="relative z-10">Reserva Online</span>
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-gold-light to-gold-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
-          </button>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 animate-fade-in-up">
+            <button
+              onClick={() => setIsBookingInfoModalOpen(true)}
+              className="group relative inline-flex items-center justify-center px-8 sm:px-10 md:px-12 py-4 sm:py-5 bg-gradient-to-r from-gold-primary to-gold-accent rounded-2xl text-lg sm:text-xl font-body font-bold text-dark-primary border border-gold-primary/20 hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-gold-primary/50 cursor-pointer"
+            >
+              <span className="relative z-10">Reserva Online</span>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-gold-light to-gold-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+            </button>
+
+            <a
+              href="tel:+34916566306"
+              className="inline-flex items-center justify-center gap-2 px-8 sm:px-10 md:px-12 py-4 sm:py-5 bg-transparent border border-gold-primary/40 rounded-2xl text-lg sm:text-xl font-body font-bold text-gold-light hover:scale-105 transition-all duration-300 hover:border-gold-primary hover:bg-gold-primary/10 hover:shadow-lg hover:shadow-gold-primary/20"
+            >
+              <Phone className="w-5 h-5" />
+              <span>Llámanos</span>
+            </a>
+          </div>
         </div>
 
         {/* Floating elements */}
