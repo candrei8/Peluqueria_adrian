@@ -13,7 +13,8 @@ import {
   Zap,
   Crown,
   Sparkles,
-  Info
+  Info,
+  MessageCircle
 } from 'lucide-react';
 
 function App() {
@@ -25,6 +26,12 @@ function App() {
   const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
   const [isCookiePolicyModalOpen, setIsCookiePolicyModalOpen] = useState(false);
   const [showCookieBanner, setShowCookieBanner] = useState(false);
+
+  // Reservas online cerradas por vacaciones hasta el 17 de agosto de 2026 (se reactivan solas ese día)
+  const vacationEnd = new Date(2026, 7, 17);
+  const isOnVacation = new Date() < vacationEnd;
+
+  const whatsappUrl = 'https://wa.me/34916566306?text=Hola%2C%20me%20gustar%C3%ADa%20reservar%20una%20cita';
 
   const galleryImages = [
     '/fachada.jpg',
@@ -202,13 +209,33 @@ function App() {
           </p>
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 animate-fade-in-up">
-            <button
-              onClick={() => setIsBookingInfoModalOpen(true)}
-              className="group relative inline-flex items-center justify-center px-8 sm:px-10 md:px-12 py-4 sm:py-5 bg-gradient-to-r from-gold-primary to-gold-accent rounded-2xl text-lg sm:text-xl font-body font-bold text-dark-primary border border-gold-primary/20 hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-gold-primary/50 cursor-pointer"
+            {isOnVacation ? (
+              <button
+                disabled
+                className="relative inline-flex flex-col items-center justify-center px-8 sm:px-10 md:px-12 py-4 sm:py-5 bg-dark-accent/80 rounded-2xl text-lg sm:text-xl font-body font-bold text-gold-muted border border-gold-primary/20 cursor-not-allowed opacity-70"
+              >
+                <span className="relative z-10">Reserva Online</span>
+                <span className="relative z-10 text-xs sm:text-sm font-semibold text-red-400 mt-1">Cerrado por vacaciones hasta el 17</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => setIsBookingInfoModalOpen(true)}
+                className="group relative inline-flex items-center justify-center px-8 sm:px-10 md:px-12 py-4 sm:py-5 bg-gradient-to-r from-gold-primary to-gold-accent rounded-2xl text-lg sm:text-xl font-body font-bold text-dark-primary border border-gold-primary/20 hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-gold-primary/50 cursor-pointer"
+              >
+                <span className="relative z-10">Reserva Online</span>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-gold-light to-gold-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+              </button>
+            )}
+
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-8 sm:px-10 md:px-12 py-4 sm:py-5 bg-transparent border border-[#25D366]/50 rounded-2xl text-lg sm:text-xl font-body font-bold text-[#25D366] hover:scale-105 transition-all duration-300 hover:border-[#25D366] hover:bg-[#25D366]/10 hover:shadow-lg hover:shadow-[#25D366]/20"
             >
-              <span className="relative z-10">Reserva Online</span>
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-gold-light to-gold-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
-            </button>
+              <MessageCircle className="w-5 h-5" />
+              <span>WhatsApp</span>
+            </a>
 
             <a
               href="tel:+34916566306"
@@ -494,17 +521,33 @@ function App() {
             Reserva tu Cita
           </h2>
           <p className="text-lg sm:text-xl md:text-2xl text-gold-muted mb-8 sm:mb-12 md:mb-16 font-body font-light max-w-3xl mx-auto leading-relaxed animate-slide-in-left px-4">
-            Llámanos o visítanos en nuestra peluquería en Torrejón de Ardoz
+            Llámanos, escríbenos por WhatsApp o visítanos en nuestra peluquería en Torrejón de Ardoz
           </p>
 
-          <a
-            href="tel:+34916566306"
-            className="group relative inline-block px-8 sm:px-12 md:px-16 lg:px-20 py-4 sm:py-6 md:py-8 bg-gradient-to-r from-gold-primary to-gold-accent rounded-2xl sm:rounded-3xl text-lg sm:text-xl md:text-2xl font-body font-bold text-dark-primary hover:from-gold-light hover:to-gold-primary transition-all duration-500 transform hover:scale-110 hover:shadow-2xl hover:shadow-gold-primary/50 border border-gold-primary/20 animate-fade-in-up"
-          >
-            <span className="relative z-10">Llamar Ahora</span>
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-gold-light to-gold-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
-            <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-gold-primary/50 to-gold-accent/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <a
+              href="tel:+34916566306"
+              className="group relative inline-block px-8 sm:px-12 md:px-16 lg:px-20 py-4 sm:py-6 md:py-8 bg-gradient-to-r from-gold-primary to-gold-accent rounded-2xl sm:rounded-3xl text-lg sm:text-xl md:text-2xl font-body font-bold text-dark-primary hover:from-gold-light hover:to-gold-primary transition-all duration-500 transform hover:scale-110 hover:shadow-2xl hover:shadow-gold-primary/50 border border-gold-primary/20 animate-fade-in-up"
+            >
+              <span className="relative z-10">Llamar Ahora</span>
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-gold-light to-gold-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+              <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-gold-primary/50 to-gold-accent/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+            </a>
+
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-12 md:px-16 lg:px-20 py-4 sm:py-6 md:py-8 bg-[#25D366] rounded-2xl sm:rounded-3xl text-lg sm:text-xl md:text-2xl font-body font-bold text-dark-primary hover:bg-[#2ee879] transition-all duration-500 transform hover:scale-110 hover:shadow-2xl hover:shadow-[#25D366]/50 border border-[#25D366]/40 animate-fade-in-up"
+            >
+              <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7" />
+              <span className="relative z-10">Reservar por WhatsApp</span>
+            </a>
+          </div>
+
+          <p className="mt-6 text-base sm:text-lg text-gold-muted font-body">
+            WhatsApp: <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-[#25D366] font-semibold hover:underline">916 566 306</a>
+          </p>
         </div>
       </section>
 
@@ -559,9 +602,18 @@ function App() {
               </div>
               <a
                 href="tel:+34916566306"
-                className="text-gold-muted hover:text-gold-primary mb-4 sm:mb-6 md:mb-8 text-base sm:text-lg font-body transition-colors duration-300 cursor-pointer hover:underline"
+                className="text-gold-muted hover:text-gold-primary mb-2 text-base sm:text-lg font-body transition-colors duration-300 cursor-pointer hover:underline"
               >
                 +34 916 566 306
+              </a>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-gold-muted hover:text-[#25D366] mb-4 sm:mb-6 md:mb-8 text-base sm:text-lg font-body transition-colors duration-300 cursor-pointer hover:underline"
+              >
+                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#25D366]" />
+                WhatsApp: 916 566 306
               </a>
 
               <div className="flex justify-center space-x-3 sm:space-x-4">
