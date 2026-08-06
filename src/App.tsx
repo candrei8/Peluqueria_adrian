@@ -215,7 +215,8 @@ function App() {
                 className="relative inline-flex flex-col items-center justify-center px-8 sm:px-10 md:px-12 py-4 sm:py-5 bg-dark-accent/80 rounded-2xl text-lg sm:text-xl font-body font-bold text-gold-muted border border-gold-primary/20 cursor-not-allowed opacity-70"
               >
                 <span className="relative z-10">Reserva Online</span>
-                <span className="relative z-10 text-xs sm:text-sm font-semibold text-red-400 mt-1">Cerrado por vacaciones hasta el 17</span>
+                <span className="relative z-10 text-xs sm:text-sm font-semibold text-red-400 mt-1">Solo reservas online no disponibles hasta el 17</span>
+                <span className="relative z-10 text-xs sm:text-sm font-semibold text-gold-light mt-1">La peluquería sigue abierta — llámanos o escríbenos por WhatsApp</span>
               </button>
             ) : (
               <button
